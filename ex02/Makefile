@@ -6,7 +6,7 @@ CPP				= clang++
 RM				= rm -f
 CPPFLAGS		= -Wall -Wextra -Werror -std=c++98 -I.
 
-NAME			= convert
+NAME			= identify
 
 all:			$(NAME)
 
