@@ -1,24 +1,37 @@
-SRCS			= main.cpp
+NAME = a.out
 
-OBJS			= $(SRCS:.cpp=.o)
+SRCS = ./main.cpp
 
-CPP				= clang++
-RM				= rm -f
-CPPFLAGS		= -Wall -Wextra -Werror -std=c++98 -I.
+HEADER = ./Identify.hpp ./A.hpp ./B.hpp ./C.hpp ./Base.hpp
 
-NAME			= identify
+OBJS = $(SRCS:%.cpp=%.o)
 
-all:			$(NAME)
+DEPENDS = $(OBJS:%.o=%.d)
 
-$(NAME):		$(OBJS)
-				$(CPP) $(CPPFLAGS) -o $(NAME) $(OBJS)
+CLANG =     clang++
 
-clean:
-				$(RM) $(OBJS)
+CPPFLAGS =  -Wall -Wextra -Werror -std=c++98 -pedantic -I.
 
-fclean:			clean
-				$(RM) $(NAME)
+RM =        rm -f
 
-re:				fclean $(NAME)
+all :       ${NAME}
 
-.PHONY:			all clean fclean re
+$(NAME) :   $(OBJS) 
+			$(CLANG) $(CPPFLAGS) $(OBJS) -o $@
+
+%.o:  %.cpp $(HEADER)
+			${CLANG} $(CPPFLAGS) -MMD -o $@ -c $<
+
+-include	$(DEPENDS)
+
+clean :     
+			$(RM) $(OBJS)
+			$(RM) $(DEPENDS)
+
+
+fclean  :   clean
+			$(RM) ${NAME}
+
+re :        fclean all
+
+.PHONY :    all clean fclean re

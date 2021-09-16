@@ -37,7 +37,8 @@ void identify(Base &p)
 
 	try
 	{
-		dynamic_cast<A&>(p);
+		A ob;
+		ob = dynamic_cast<A&>(p);
 		std::cout << "A" << std::endl;
 	}
 	catch(const std::exception& e)
@@ -45,7 +46,8 @@ void identify(Base &p)
 	}
 	try
 	{
-		dynamic_cast<B&>(p);
+		B ob;
+		ob = dynamic_cast<B&>(p);
 		std::cout << "B" << std::endl;
 	}
 	catch(const std::exception& e)
@@ -53,7 +55,8 @@ void identify(Base &p)
 	}
 	try
 	{
-		dynamic_cast<C &>(p);
+		C ob;
+		ob = dynamic_cast<C &>(p);
 		std::cout << "C" << std::endl;
 	}
 	catch(const std::exception& e)
